@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.consentStep.ConsentStepLoanMapper">
+
+	<!-- 대출 자산 동의내역 조회 -->
+    <select id="findById" resultType="ConsentStepLoanDto" parameterType="java.lang.String">
+        SELECT
+		  aa.client_id,
+		  aa.org_code,
+		  aa.account_num,
+		  aa.prod_name,
+		  aa.loan_start_date,
+		  aa.loan_exp_date,
+		  bb.consent_id,
+		  ifnull(bb.is_scheduled, 0) is_scheduled
+		FROM
+		  (SELECT
+		    client_id,
+		    org_code,
+		    account_num,
+		    prod_name,
+		    loan_start_date,
+		    loan_exp_date
+		  FROM
+		    loans_basic
+		  WHERE
+		    loan_exp_date >= date(now()) AND
+		    client_id = #{clientId} ) aa LEFT JOIN consent bb
+		    ON aa.account_num = bb.ia_num;
+    </select>
+    
+    <!-- 대출 자산 동의 -->
+	<insert id="insertConsents" parameterType="java.lang.String">
+		INSERT INTO mydata.consent
+			(org_code, customer_id, is_scheduled, `cycle`, end_date,
+			purpose, holding_term, created_at, updated_at, period,
+			client_id, `scope`, ia_num)
+		SELECT
+    		org_code,
+			client_id customer_id,
+			true is_scheduled,
+			'3M' `cycle`,
+			DATE_ADD(NOW(), INTERVAL 1 YEAR) end_date,
+			'전송요구허가' purpose,
+			0 holding_term,
+			NOW() created_at,
+			NOW() updated_at,
+			99 period,
+			org_code client_id,
+			'insu.loan' `scope`,
+			account_num ia_num
+		FROM
+			mydata.loans_basic
+		WHERE
+			client_id = #{customerId} AND
+			account_num = #{accountNum}
+	</insert>
+    
+    <!-- 대출 자산 동의내역 제거 -->
+    <delete id="deleteConsents" parameterType="java.lang.String">
+    	DELETE FROM consent WHERE customer_id = #{customerId}
+    </delete>
+    
+    <!-- 동의 대출자산 내역 조회 -->
+    <select id="findScheduledById" resultType="ConsentStepLoanDto" parameterType="java.lang.String">
+        SELECT
+		  aa.client_id,
+		  aa.org_code,
+		  aa.account_num,
+		  aa.prod_name,
+		  aa.loan_start_date,
+		  aa.loan_exp_date,
+		  bb.consent_id,
+		  ifnull(bb.is_scheduled, 0) is_scheduled
+		FROM
+		  (SELECT
+		    client_id,
+		    org_code,
+		    account_num,
+		    prod_name,
+		    loan_start_date,
+		    loan_exp_date
+		  FROM
+		    loans_basic
+		  WHERE
+		    loan_exp_date >= date(now()) AND
+		    client_id = #{clientId} ) aa LEFT JOIN consent bb
+		    ON aa.account_num = bb.ia_num
+		WHERE
+			bb.is_scheduled = '1'	
+    </select>
+
+</mapper>

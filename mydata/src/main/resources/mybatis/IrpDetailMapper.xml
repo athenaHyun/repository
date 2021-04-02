@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.insu.irps.detail.IrpDetailMapper">
+
+	<!-- 개인형 IRP 계좌 추가정보 조회 -->
+    <sql id="COMMON_PAGING_HEADER">
+		SELECT R1.* FROM(	
+	</sql>
+
+	<sql id="COMMON_PAGING_TAIL">
+		) R1
+		LIMIT #{limit, jdbcType=INTEGER} OFFSET #{nextPage, jdbcType=INTEGER}	
+	</sql>
+
+	<select id="findAll" parameterType="IrpDetailDto" resultType="IrpDetailDto">
+		<include refid="COMMON_PAGING_HEADER"/>
+			SELECT org_code  AS orgCode
+           		 , api_uri   AS apiUri
+           		 , name      AS name
+              FROM mydata.api 
+		<include refid="COMMON_PAGING_TAIL"/>
+	</select>
+		
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.v1.insu.insurances.car.transactions.InsuCarTransactionsMapper">
+
+    <select
+        id="findAll"
+        parameterType="InsuCarTransactionsDto"
+        resultType="InsuCarTransactionsDto">
+        SELECT 
+             	"1" AS faceAmt
+			   ,"1" AS transNo
+			   ,"1" AS paidAmt
+			   ,"1" AS payMethod
+			   
+    </select>
+
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.assetMng.AssetMngMapper">
+
+	<!-- 자산관리 조회 -->
+	<select id="findAll" parameterType="map" resultType="map">
+        SELECT
+	           client_id as clientId
+	         , org_code as orgCode
+	         , insu_num as insuNum
+          FROM mydata.insu_basica
+         WHERE client_id = #{clientId}
+    </select>
+    
+    <!-- 20210329 dc13 생성 -->
+	<!-- 대출 자산관리 조회 -->
+	<select id="findAllLoan" parameterType="map" resultType="map">
+        SELECT
+	           client_id as clientId
+	         , org_code as orgCode
+	         , account_num as accountNum
+          FROM mydata.loans_basic
+         WHERE client_id = #{clientId}
+    </select>
+    
+    <!-- 개인형IRP 자산관리 조회 -->
+    <select id="findAllIrp" parameterType="map" resultType="map">
+        SELECT
+	           client_id as clientId
+	         , org_code as orgCode
+	         , account_num as accountNum
+          FROM mydata.irps_basic
+         WHERE client_id = #{clientId}
+    </select>
+    <!-- 20210329 dc13 생성 -->
+ 
+    <!-- 자산관리 건수 조회 -->
+	<select id="findAssetMngCnt" parameterType="map" resultType="Int">
+        SELECT COUNT(*) as cnt
+          FROM mydata.insu_basica
+         WHERE client_id = #{clientId}
+           AND org_code = #{orgCode}
+		   AND insu_num = #{insuNum}
+    </select>
+    
+    <!-- 20210329 dc13 생성 -->
+    <!-- 대출 자산관리 건수 조회 -->
+	<select id="findAssetMngLoanCnt" parameterType="map" resultType="Int">
+        SELECT COUNT(*) as cnt
+          FROM mydata.loans_basic
+         WHERE client_id = #{clientId}
+           AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </select>
+    
+    <!-- 개인형IRP 자산관리 건수 조회 -->
+	<select id="findAssetMngIrpCnt" parameterType="map" resultType="Int">
+        SELECT COUNT(*) as cnt
+          FROM mydata.irps_basic
+         WHERE client_id = #{clientId}
+           AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </select>
+    <!-- 20210329 dc13 생성 -->
+
+	<!-- 자산관리 등록 -->
+    <insert id="assetInsert" parameterType="hashmap">
+        INSERT
+        INTO mydata.insu_basica
+	         (
+	         	client_id
+	         ,	org_code
+	         ,	insu_num
+	         )
+			 VALUES
+			 (
+			 	#{clientId}
+			 ,	#{orgCode}
+			 ,	#{insuNum}
+			 ) 
+    </insert>
+    
+    <!-- 20210329 dc13 생성 -->
+    <!-- 대출 자산관리 등록 -->
+    <insert id="assetInsertLoan" parameterType="hashmap">
+        INSERT
+        INTO mydata.loans_basic
+	         (
+	         	client_id
+	         ,	org_code
+	         ,	account_num
+	         )
+			 VALUES
+			 (
+			 	#{clientId}
+			 ,	#{orgCode}
+			 ,	#{accountNum}
+			 ) 
+    </insert>
+    
+    <!-- 개인형IRP 자산관리 등록 -->
+    <insert id="assetInsertIrp" parameterType="hashmap">
+        INSERT
+        INTO mydata.irps_basic
+	         (
+	         	client_id
+	         ,	org_code
+	         ,	account_num
+	         )
+			 VALUES
+			 (
+			 	#{clientId}
+			 ,	#{orgCode}
+			 ,	#{accountNum}
+			 ) 
+    </insert>
+    <!-- 20210329 dc13 생성 -->
+    
+    <!-- 자산관리 수정 -->
+    <update id="assetModify" parameterType="hashmap">
+        UPDATE mydata.insu_basica
+           SET org_code = #{orgCodeC}
+             , insu_num = #{insuNumC}
+	     WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND insu_num = #{insuNum}
+    </update>
+    
+    <!-- 20210329 dc13 생성 -->
+    <!-- 대출 자산관리 수정 -->
+    <update id="assetModifyLoan" parameterType="hashmap">
+        UPDATE mydata.loans_basic
+           SET org_code = #{orgCodeC}
+             , account_num = #{accountNumC}
+	     WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </update>
+    
+    <!-- 개인형IRP 자산관리 수정 -->
+    <update id="assetModifyIrp" parameterType="hashmap">
+        UPDATE mydata.irps_basic
+           SET org_code = #{orgCodeC}
+             , account_num = #{accountNumC}
+	     WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </update>
+    <!-- 20210329 dc13 생성 -->
+    
+    <!-- 자산관리 삭제 -->
+    <delete id="assetDelete" parameterType="hashmap">
+		DELETE FROM mydata.insu_basica
+		 WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND insu_num = #{insuNum}
+    </delete>
+    
+    <!-- 20210329 dc13 생성 -->
+    <!-- 대출 자산관리 삭제 -->
+    <delete id="assetDeleteLoan" parameterType="hashmap">
+		DELETE FROM mydata.loans_basic
+		 WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </delete>
+    
+    <!-- 개인형IRP 자산관리 삭제 -->
+    <delete id="assetDeleteIrp" parameterType="hashmap">
+		DELETE FROM mydata.irps_basic
+		 WHERE client_id = #{clientId}
+		   AND org_code = #{orgCode}
+		   AND account_num = #{accountNum}
+    </delete>
+    <!-- 20210329 dc13 생성 -->
+    
+</mapper>

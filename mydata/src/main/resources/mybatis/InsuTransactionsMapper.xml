@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.v1.insu.insurances.transactions.InsuTransactionsMapper">
+
+    <select
+        id="findAll"
+        parameterType="InsuTransactionsDto"
+        resultType="InsuTransactionsDto">
+        SELECT 
+             	"1" AS transDate
+			   ,"1" AS transAppliedMonth
+			   ,"1" AS transNo
+			   ,"1" AS paidAmt
+			   ,"1" AS currencyCode
+			   ,"1" AS payMethod
+			   
+    </select>
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.insu.irps.basic.IrpBasicListMapper">
+
+    <!-- 개인형 IRP 계좌 기본정보 조회 -->
+    <select id="findByOne" parameterType="IrpBasicDto" resultType="HashMap">
+        SELECT 
+			   "1" AS accumAmt
+			 , "1" AS evalAmt
+			 , "1" AS employerAmt
+			 , "1" AS employeeAmt
+			 , "1" AS issueDate
+			 , "1" AS firstDepositDate
+    </select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.common.consent.ConsentMapper">
+
+    <select
+        id="findOne"
+        resultType="ConsentDto"
+        parameterType="ConsentDto">
+        SELECT a.consent_id,
+               a.org_code,
+               a.service_id,
+               a.customer_id,
+               a.is_scheduled,
+               a.cycle,
+               a.end_date,
+               a.purpose,
+               a.holding_term
+        FROM consent a
+        WHERE a.org_code = #{orgCode}
+          AND a.service_id = #{serviceId}
+          AND a.customer_id = #{customerId};
+    </select>
+
+    <select
+            id="findOneOptional"
+            resultType="ConsentDto"
+            parameterType="ConsentDto">
+        SELECT a.consent_id,
+               a.org_code,
+               a.service_id,
+               a.customer_id,
+               a.is_scheduled,
+               a.cycle,
+               a.end_date,
+               a.purpose,
+               a.holding_term
+        FROM consent a
+        WHERE a.org_code = #{orgCode}
+          AND a.service_id = #{serviceId}
+          AND a.customer_id = #{customerId};
+    </select>
+</mapper>

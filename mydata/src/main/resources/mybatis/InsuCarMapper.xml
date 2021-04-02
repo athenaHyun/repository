@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.v1.insu.insurances.car.InsuCarMapper">
+
+    <select
+        id="findAll"
+        parameterType="InsuCarDto"
+        resultType="InsuCarDto">
+        SELECT 
+             	"1" AS carNumber
+			   ,"1" AS carInsuType
+			   ,"1" AS carName
+			   ,"1" AS startDate
+			   ,"1" AS endDate
+			   ,"1" AS contractAge
+			   ,"1" AS contractDriver
+			   ,"1" AS isOwnDmgCoverAge
+			   ,"1" AS selfPayRate
+			   ,"1" AS selfPayAmt
+    </select>
+
+</mapper>

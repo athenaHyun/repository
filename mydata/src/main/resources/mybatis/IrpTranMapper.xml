@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.insu.irps.transactions.IrpTranMapper">
+
+	<!-- 개인형 IRP 계좌 거래내역 조회 -->
+    <sql id="COMMON_PAGING_HEADER">
+		SELECT R1.* FROM(	
+	</sql>
+
+	<sql id="COMMON_PAGING_TAIL">
+		) R1
+		LIMIT #{limit, jdbcType=INTEGER} OFFSET #{nextPage, jdbcType=INTEGER}	
+	</sql>
+
+	<select id="findAll" parameterType="IrpTranDto" resultType="IrpTranDto">
+		<include refid="COMMON_PAGING_HEADER"/>
+			SELECT id           AS id
+           		 , issue_date   AS issueDate
+           		 , exp_date     AS expDate
+              FROM mydata.insu_basic
+             WHERE issue_date BETWEEN #{fromDate} AND #{toDate}      
+		<include refid="COMMON_PAGING_TAIL"/>
+	</select>
+		
+</mapper>

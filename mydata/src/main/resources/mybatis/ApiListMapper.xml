@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.common.apilist.ApiListMapper">
+
+    <select
+        id="findById"
+        resultType="ApiDto"
+        parameterType="java.lang.String">
+        SELECT
+            api_id,
+            name
+        FROM api
+        WHERE api_id = #{apiId}
+    </select>
+
+    <select
+        id="findAll"
+        parameterType="ApiDto"
+        resultType="ApiDto">
+        SELECT api_id
+             , api_uri
+             , method
+             , min_version
+             , name
+             , version
+        FROM api
+        WHERE org_code = #{orgCode}
+    </select>
+
+</mapper>

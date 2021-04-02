@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.system.member.MemberMapper">
+
+    <select id="findById" resultType="Member" parameterType="String">
+        select a.client_id,
+               a.client_secret,
+               a.organization_code,
+               a.authorize_code,
+               a.timestamp
+        from member a
+        where a.client_id = #{clientId};
+    </select>
+
+    <update id="updateMember" parameterType="Member">
+    	UPDATE member SET 
+            authorize_code = #{authorizeCode}
+        where client_id = #{clientId}
+    </update>
+    
+    <insert id="insertMember" parameterType="Member">
+        INSERT INTO member (
+			client_id 
+            , client_secret
+            , organization_code
+            , authorize_code
+            , timestamp
+		)
+		VALUES (
+			#{clientId}
+            , #{clientSecret}
+            , #{organizationCode}
+            , #{authorizeCode}
+            , #{timestamp}
+		)
+		ON
+		DUPLICATE KEY
+		UPDATE
+		client_secret = #{clientSecret}
+		, organization_code = #{authorizeCode}
+		, timestamp = #{timestamp}
+    </insert>
+</mapper>

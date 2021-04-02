@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.v1.insu.insurances.InsuListMapper">
+
+    <select
+        id="findAll"
+        parameterType="InsuDto"
+        resultType="InsuDto">
+        SELECT insu_num
+             , is_consent
+             , prod_name
+             , insu_type
+             , insu_status
+        FROM insurance
+        WHERE org_code = #{orgCode}
+    </select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gsitm.mydata.api.support.consent.ConsentDetailMapper">
+
+    <select
+        id="findServiceList"
+        resultType="ServiceListDto"
+        parameterType="ConsentListDto">
+        select a.service_id,
+               a.service_name,
+               a.client_id
+        from service_info a,
+             consent b
+        where a.org_code = b.org_code
+          and a.service_id = b.service_id
+          and a.org_code = #{orgCode}
+          and b.customer_id = #{customerId}
+    </select>
+
+    <select
+        id="findConsentDetailList"
+        resultType="ConsentDetailDto"
+        parameterType="ConsentListDto">
+        select b.consent_type,
+               a.created_at as consent_date,
+               a.end_date as consent_exp_date
+        from consent a,
+             consent_detail b
+        where a.consent_id = b.consent_id
+          and a.org_code = b.org_code
+          and a.service_id = b.service_id
+          and a.customer_id = b.customer_id
+          and a.org_code = #{orgCode}
+          and a.service_id = #{serviceId}
+          and a.customer_id = #{customerId}
+    </select>
+
+</mapper>
